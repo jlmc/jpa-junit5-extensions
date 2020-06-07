@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- File Appender -->
+        <!--        <File name="File" fileName="hibernate.log">-->
+        <!--            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />-->
+        <!--        </File>-->
+
+    </Appenders>
+    <Loggers>
+        <Logger name="io.costax" additivity="false" level="ALL">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Log everything in hibernate -->
+        <Logger name="org.hibernate" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <!--Log all SQL DDL statements as they are executed-->
+        <Logger name="org.hibernate.tool.hbm2ddl" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--  Log the state of all entities (max 20 entities) associated with the session at flush time -->
+        <Logger name="org.hibernate.pretty" level="all" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log SQL statements -->
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <!--Log all JDBC parameters-->
+        <Logger name="org.hibernate.type" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log SQL statement parameter and query fetch values-->
+        <Logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log SQL statement parameter -->
+        <!-- <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">
+             <AppenderRef ref="Console" />
+         </Logger>-->
+        <!-- Log SQL queries fetch values -->
+        <Logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log Hibernate queries statistics -->
+        <Logger name="org.hibernate.stat" level="all" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log transaction related activity -->
+        <Logger name="org.hibernate.transaction" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log all JDBC resource acquisition -->
+        <Logger name="org.hibernate.jdbc" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--  Log HQL and SQL ASTs during query parsing  -->
+        <Logger name="org.hibernate.hql.ast.AST" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log all second-level cache activity -->
+        <Logger name="org.hibernate.cache" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Log warnings of slow queries -->
+        <Logger name="org.hibernate.SQL_SLOW" level="all" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <!-- <AppenderRef ref="File" />-->
+        </Root>
+    </Loggers>
+</Configuration>
