@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/jlmc/jpa-junit5-extensions/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
+
 # JPA JUnit 5 Extensions
 
 This extension allow you to run Jpa integration tests without having to start any EntityManagerFactory for each test class.
