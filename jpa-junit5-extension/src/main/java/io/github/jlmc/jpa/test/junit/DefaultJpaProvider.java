@@ -1,6 +1,8 @@
 package io.github.jlmc.jpa.test.junit;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -123,11 +125,13 @@ class DefaultJpaProvider implements JpaProvider {
 
     private Connection unwrapConnection(EntityManager em) {
         try {
+            // try to unwarp from eclipseLink provider
             return em.unwrap(java.sql.Connection.class);
         } catch (Exception ignore) {
         }
 
         try {
+            // try to unwarp from hibernate provider
             final Object delegate = em.getDelegate();
             final Class<?> aClass1 = delegate.getClass();
             final Method connectionMethod = aClass1.getDeclaredMethod("connection");
@@ -135,9 +139,9 @@ class DefaultJpaProvider implements JpaProvider {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignore) {
         }
 
-        throw new UnsupportedOperationException("The JPA-Junit5-Extension can not extract a "
+        throw new UnsupportedOperationException("The JPA-Junit5-Extension can not extract a '"
                 + java.sql.Connection.class.getName()
-                + " from your current JPA provider");
+                + "' from your current JPA provider");
     }
 
 }

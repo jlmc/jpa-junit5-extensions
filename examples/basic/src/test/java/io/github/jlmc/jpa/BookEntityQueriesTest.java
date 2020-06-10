@@ -2,6 +2,7 @@ package io.github.jlmc.jpa;
 
 import io.github.jlmc.jpa.test.annotation.JpaContext;
 import io.github.jlmc.jpa.test.annotation.JpaTest;
+import io.github.jlmc.jpa.test.annotation.Sql;
 import io.github.jlmc.jpa.test.junit.JpaProvider;
 import org.hibernate.annotations.QueryHints;
 import org.junit.jupiter.api.Assertions;
@@ -14,28 +15,33 @@ import org.junit.jupiter.params.provider.ValueSource;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@JpaTest(
-        persistenceUnit = "it",
-        beforeEachQueries = {
-                "insert into book (id, title) values (9901, 'Don Quixote by Miguel de Cervantes')",
-                "insert into book (id, title) values (9902, 'n Search of Lost Time by Marcel Proust')",
+import static io.github.jlmc.jpa.test.annotation.Sql.Phase.AFTER_TEST_METHOD;
+import static io.github.jlmc.jpa.test.annotation.Sql.Phase.BEFORE_TEST_METHOD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@JpaTest(persistenceUnit = "it")
+@Sql(
+        statements = {
+                "insert into book (id, title) values (9901, 'Mastering Java 11')",
+                "insert into book (id, title) values (9902, 'Refactoring. Improving the Design of Existing Code')"
         },
-        afterEachQueries = {
-                "delete from book where true"
-        }
+        phase = BEFORE_TEST_METHOD
 )
+@Sql(
+        statements = "delete from book where true",
+        phase = AFTER_TEST_METHOD)
 @DisplayNameGeneration(DisplayNameGenerator.Standard.class)
 class BookEntityQueriesTest {
 
     @JpaContext
-    private JpaProvider jpa;
+    JpaProvider jpa;
 
     @ParameterizedTest
     @ValueSource(ints = {9901, 9902})
     void findBookById(int bookId) {
         final Book book = jpa.em().find(Book.class, bookId);
         Assertions.assertNotNull(book);
-        Assertions.assertEquals(bookId, book.getId());
+        assertEquals(bookId, book.getId());
     }
 
     @Test
@@ -55,7 +61,7 @@ class BookEntityQueriesTest {
         List<Book> books = jpa.em()
                 .createQuery("select b from Book b", Book.class)
                 .getResultList();
-        Assertions.assertEquals(2, books.size());
+        assertEquals(2, books.size());
     }
 
     @Test
@@ -69,8 +75,8 @@ class BookEntityQueriesTest {
         final Book book = jpa.em().find(Book.class, savedBook.getId());
 
         Assertions.assertNotSame(savedBook, book);
-        Assertions.assertEquals(savedBook.getId(), book.getId());
-        Assertions.assertEquals(savedBook.getTitle(), book.getTitle());
+        assertEquals(savedBook.getId(), book.getId());
+        assertEquals(savedBook.getTitle(), book.getTitle());
     }
 
     @Test
@@ -84,14 +90,16 @@ class BookEntityQueriesTest {
 
         });
 
+        //@formatter:off
         final Book book = jpa
                 .em()
-                .createQuery("select b from Book b where b.id = :id", Book.class)
-                .setParameter("id", bookId)
-                .setHint(QueryHints.FETCH_SIZE, 1)
-                .setHint(QueryHints.READ_ONLY, true)
-                .getSingleResult();
+                    .createQuery("select b from Book b where b.id = :id", Book.class)
+                    .setParameter("id", bookId)
+                    .setHint(QueryHints.FETCH_SIZE, 1)
+                    .setHint(QueryHints.READ_ONLY, true)
+                    .getSingleResult();
+        //@formatter:on
 
-        Assertions.assertEquals("Don Quixote by Miguel de Cervantes".toUpperCase(), book.getTitle());
+        assertEquals("Mastering Java 11".toUpperCase(), book.getTitle());
     }
 }

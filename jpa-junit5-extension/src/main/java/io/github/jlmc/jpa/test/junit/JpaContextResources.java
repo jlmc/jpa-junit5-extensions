@@ -5,22 +5,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.lang.reflect.Field;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
 public class JpaContextResources {
 
     private final JpaTestConfiguration jpaTestConfiguration;
-    private final List<Field> providesFields;
     private final Set<FieldValuePair<?>> executionFieldObjects = new HashSet<>();
     private EntityManagerFactory entityManagerFactory;
 
-    JpaContextResources(final JpaTestConfiguration configuration,
-                        final List<Field> providesFields) {
-
+    JpaContextResources(final JpaTestConfiguration configuration) {
         jpaTestConfiguration = configuration;
-        this.providesFields = providesFields;
     }
 
     void startEntityManagerFactory() {
@@ -43,10 +38,6 @@ public class JpaContextResources {
         return new DefaultJpaProvider(this.entityManagerFactory);
     }
 
-    JpaTestConfiguration getJpaTestConfiguration() {
-        return jpaTestConfiguration;
-    }
-
     public <T> void addExecutionFieldValue(final Field field, Class<T> clazz, final T value) {
         this.executionFieldObjects.add(new FieldValuePair<>(field, clazz, value, (c) -> {
         }));
@@ -61,6 +52,7 @@ public class JpaContextResources {
         this.executionFieldObjects.clear();
     }
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private static class FieldValuePair<T> {
         private final Field field;
         private final Class<T> clazz;

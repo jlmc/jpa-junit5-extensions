@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * An injectable interface providing runtime methods to execute test statements.
+ */
 public interface JpaProvider {
 
     /**

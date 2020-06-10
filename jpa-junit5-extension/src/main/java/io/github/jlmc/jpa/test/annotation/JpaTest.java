@@ -8,6 +8,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation for a JPA test that focuses only on JPA components.
+ */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(JpaTestExtension.class)
@@ -15,7 +18,4 @@ public @interface JpaTest {
 
     String persistenceUnit();
 
-    String[] beforeEachQueries() default {};
-
-    String[] afterEachQueries() default {};
 }
