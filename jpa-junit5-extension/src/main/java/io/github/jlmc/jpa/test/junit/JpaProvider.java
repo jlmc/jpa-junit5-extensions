@@ -37,7 +37,7 @@ public interface JpaProvider {
      * @param <T> class type of the object that should be returned.
      * @return object of the generic type T
      */
-    <T> T doIt(Function<EntityManager, T> function);
+    <T> T doItWithReturn(Function<EntityManager, T> function);
 
     /**
      * Execute an EntityManager consumer function under an JPA {@link EntityTransaction}.
@@ -57,7 +57,7 @@ public interface JpaProvider {
      * @param <T> class type of the object that should be returned.
      * @return object of the generic type T
      */
-    <T> T doInTx(Function<EntityManager, T> function);
+    <T> T doInTxWithReturn(Function<EntityManager, T> function);
 
     /**
      * Execute a Jdbc connection consumer statement with a return object.

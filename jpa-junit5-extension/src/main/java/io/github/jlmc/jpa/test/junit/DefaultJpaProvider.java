@@ -40,7 +40,7 @@ class DefaultJpaProvider implements JpaProvider {
     }
 
     @Override
-    public <T> T doIt(Function<EntityManager, T> function) {
+    public <T> T doItWithReturn(Function<EntityManager, T> function) {
         final EntityManager em = em();
         try {
 
@@ -74,7 +74,7 @@ class DefaultJpaProvider implements JpaProvider {
     }
 
     @Override
-    public <T> T doInTx(Function<EntityManager, T> consumer) {
+    public <T> T doInTxWithReturn(Function<EntityManager, T> consumer) {
         final EntityManager em = em();
         EntityTransaction tx = null;
         try {

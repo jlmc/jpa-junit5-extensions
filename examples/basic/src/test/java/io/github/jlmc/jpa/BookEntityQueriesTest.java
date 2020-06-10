@@ -66,7 +66,7 @@ class BookEntityQueriesTest {
 
     @Test
     void createAndGetBook() {
-        Book savedBook = jpa.doInTx(em -> {
+        Book savedBook = jpa.doInTxWithReturn(em -> {
             final Book newBook = new Book().setTitle("do In Tx");
             em.persist(newBook);
             return newBook;

@@ -7,15 +7,17 @@ import io.github.jlmc.jpa.test.annotation.SqlGroup;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.support.AnnotationSupport;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class JpaTestExtension implements
         BeforeAllCallback,
@@ -83,40 +85,24 @@ public class JpaTestExtension implements
     private void injectJpaContextFields(final ExtensionContext context) throws IllegalAccessException {
         ExtensionContext.Store store = context.getStore(NAMESPACE);
 
-        JpaContextResources jpaContextResources = store.get(JPA_CONTEXT_RESOURCES, JpaContextResources.class);
-        List<Field> providesFields = providesFields(context);
-        Object testClassInstance = context.getRequiredTestInstance();
+        JpaContextResources contextResources = store.get(JPA_CONTEXT_RESOURCES, JpaContextResources.class);
 
-        if (!providesFields.isEmpty()) {
-            final JpaProvider jpaProvider = jpaContextResources.jpaProvider();
+        Object targetInstance = context.getRequiredTestInstance();
 
-            for (final Field providesField : providesFields) {
-                Class<?> type = providesField.getType();
+        final Map<Class<? extends Annotation>, List<Field>> injectableFields = providesFieldsMap(context);
+        if (!injectableFields.isEmpty()) {
+            final JpaProvider provider = contextResources.jpaProvider();
 
-                if (type.isAssignableFrom(JpaProvider.class)) {
-                    providesField.setAccessible(true);
-                    providesField.set(testClassInstance, jpaProvider);
+            final List<Field> persistenceUnitFields = injectableFields.get(PersistenceUnit.class);
+            InjectionsSupport.injectPersistenceUnitFields(targetInstance, persistenceUnitFields, provider, contextResources);
 
-                    jpaContextResources.addExecutionFieldValue(providesField, JpaProvider.class, jpaProvider);
+            final List<Field> persistenceContextFields = injectableFields.get(PersistenceContext.class);
+            InjectionsSupport.injectPersistenceContextFields(targetInstance, persistenceContextFields, provider, contextResources);
 
-                } else if (type.isAssignableFrom(EntityManager.class)) {
-                    providesField.setAccessible(true);
-                    final EntityManager em = jpaProvider.em();
-                    providesField.set(testClassInstance, em);
-
-                    jpaContextResources.addExecutionFieldValue(providesField, EntityManager.class, em, x -> {
-                        if (x.isOpen()) {
-                            x.close();
-                        }
-                    });
-                } else if (type.isAssignableFrom(EntityManagerFactory.class)) {
-                    providesField.setAccessible(true);
-                    final EntityManagerFactory emf = jpaProvider.emf();
-                    providesField.set(testClassInstance, emf);
-                    jpaContextResources.addExecutionFieldValue(providesField, EntityManagerFactory.class, emf);
-                }
-            }
+            final List<Field> contextFields = injectableFields.get(JpaContext.class);
+            InjectionsSupport.injectContextFields(targetInstance, contextFields, provider, contextResources);
         }
+
     }
 
 
@@ -147,10 +133,23 @@ public class JpaTestExtension implements
         jpaContextResources.afterEach();
     }
 
-    public List<Field> providesFields(ExtensionContext context) {
-        return context.getTestClass()
+    private Map<Class<? extends Annotation>, List<Field>> providesFieldsMap(ExtensionContext context) {
+        final List<Field> jpaContexts = context.getTestClass()
                 .map(cs -> AnnotationSupport.findAnnotatedFields(cs, JpaContext.class))
                 .orElse(Collections.emptyList());
+
+        final List<Field> persistenceContexts = context.getTestClass()
+                .map(cs -> AnnotationSupport.findAnnotatedFields(cs, PersistenceContext.class))
+                .orElse(Collections.emptyList());
+
+        final List<Field> persistenceUnits = context.getTestClass()
+                .map(cs -> AnnotationSupport.findAnnotatedFields(cs, PersistenceUnit.class))
+                .orElse(Collections.emptyList());
+
+        return Map.of(
+                JpaContext.class, jpaContexts,
+                PersistenceContext.class, persistenceContexts,
+                PersistenceUnit.class, persistenceUnits);
     }
 
     private JpaTestConfiguration findJpaTestConfiguration(final ExtensionContext context) {
@@ -174,7 +173,7 @@ public class JpaTestExtension implements
                 .filter(sql -> phase == sql.phase())
                 .map(resolver)
                 .flatMap(Arrays::stream)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         if (!sqlGroupsValues.isEmpty()) {
             return sqlGroupsValues;
@@ -185,7 +184,7 @@ public class JpaTestExtension implements
                 .filter(sql -> phase == sql.phase())
                 .map(resolver)
                 .flatMap(Arrays::stream)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
 

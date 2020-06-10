@@ -3,7 +3,7 @@ package io.github.jlmc.jpa.test.annotation;
 import java.lang.annotation.*;
 
 /**
- * @Sql is used to annotate a test class or test method to configure SQL scripts() and statements()
+ * Sql annotation is used to annotate a test class or test method to configure SQL scripts() and statements()
  * to be executed against a given database during integration tests.
  */
 @Repeatable(SqlGroup.class)
