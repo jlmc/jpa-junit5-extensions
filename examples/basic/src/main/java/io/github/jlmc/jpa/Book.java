@@ -1,4 +1,4 @@
-package io.costax.jpa;
+package io.github.jlmc.jpa;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

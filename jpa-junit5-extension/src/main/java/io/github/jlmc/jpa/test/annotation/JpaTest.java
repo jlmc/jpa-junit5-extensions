@@ -1,6 +1,6 @@
-package io.costax.jpa.test.annotation;
+package io.github.jlmc.jpa.test.annotation;
 
-import io.costax.jpa.test.junit.JpaTestExtension;
+import io.github.jlmc.jpa.test.junit.JpaTestExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;

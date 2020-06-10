@@ -10,7 +10,7 @@ Add the following dependency to your project:
 
 ```xml
 <dependency>
-  <groupId>io.costax</groupId>
+  <groupId>io.github.jlmc</groupId>
   <artifactId>jpa-junit5-extension</artifactId>
   <version>1.0</version>
   <scope>test</scope>

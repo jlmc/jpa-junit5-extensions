@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.costax</groupId>
+        <groupId>io.github.jlmc</groupId>
         <artifactId>jpa-junit5-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -13,7 +13,7 @@
     <name>JPA JUnit5 - Examples</name>
 
     <modules>
-        <module>basic-example</module>
+        <module>basic</module>
     </modules>
 
 </project>

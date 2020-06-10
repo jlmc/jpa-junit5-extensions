@@ -3,23 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <groupId>io.github.jlmc</groupId>
         <artifactId>jpa-junit5-examples</artifactId>
-        <groupId>io.costax</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>basic-example</artifactId>
+    <artifactId>basic</artifactId>
 
     <dependencies>
-
         <dependency>
-            <groupId>io.costax</groupId>
+            <groupId>io.github.jlmc</groupId>
             <artifactId>jpa-junit5-extension</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

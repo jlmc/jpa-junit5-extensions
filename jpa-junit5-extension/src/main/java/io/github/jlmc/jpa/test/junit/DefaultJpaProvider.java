@@ -1,4 +1,4 @@
-package io.costax.jpa.test.junit;
+package io.github.jlmc.jpa.test.junit;
 
 import javax.persistence.*;
 import java.lang.reflect.InvocationTargetException;

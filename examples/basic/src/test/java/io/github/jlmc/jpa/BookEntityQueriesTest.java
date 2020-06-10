@@ -1,8 +1,8 @@
-package io.costax.jpa;
+package io.github.jlmc.jpa;
 
-import io.costax.jpa.test.annotation.JpaContext;
-import io.costax.jpa.test.annotation.JpaTest;
-import io.costax.jpa.test.junit.JpaProvider;
+import io.github.jlmc.jpa.test.annotation.JpaContext;
+import io.github.jlmc.jpa.test.annotation.JpaTest;
+import io.github.jlmc.jpa.test.junit.JpaProvider;
 import org.hibernate.annotations.QueryHints;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;

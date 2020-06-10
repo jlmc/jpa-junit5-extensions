@@ -1,7 +1,7 @@
-package io.costax.jpa.test.junit;
+package io.github.jlmc.jpa.test.junit;
 
-import io.costax.jpa.test.annotation.JpaContext;
-import io.costax.jpa.test.annotation.JpaTest;
+import io.github.jlmc.jpa.test.annotation.JpaContext;
+import io.github.jlmc.jpa.test.annotation.JpaTest;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.support.AnnotationSupport;
 import org.junit.platform.commons.util.AnnotationUtils;

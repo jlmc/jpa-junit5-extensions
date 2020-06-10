@@ -1,4 +1,4 @@
-package io.costax.jpa.test.annotation;
+package io.github.jlmc.jpa.test.annotation;
 
 
 import java.lang.annotation.ElementType;
