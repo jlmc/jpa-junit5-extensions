@@ -1,8 +1,9 @@
 package io.github.jlmc.jpa.test.junit;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.EntityManagerFactory;
+
 import java.sql.Connection;
 import java.util.function.Consumer;
 import java.util.function.Function;
