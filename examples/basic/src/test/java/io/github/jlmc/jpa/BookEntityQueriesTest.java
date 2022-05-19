@@ -4,6 +4,7 @@ import io.github.jlmc.jpa.test.annotation.JpaContext;
 import io.github.jlmc.jpa.test.annotation.JpaTest;
 import io.github.jlmc.jpa.test.annotation.Sql;
 import io.github.jlmc.jpa.test.junit.JpaProvider;
+import jakarta.persistence.EntityManager;
 import org.hibernate.annotations.QueryHints;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 import static io.github.jlmc.jpa.test.annotation.Sql.Phase.AFTER_TEST_METHOD;

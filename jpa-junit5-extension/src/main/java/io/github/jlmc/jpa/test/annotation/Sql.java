@@ -1,6 +1,10 @@
 package io.github.jlmc.jpa.test.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Sql annotation is used to annotate a test class or test method to configure SQL scripts() and statements()

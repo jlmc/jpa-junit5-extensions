@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
  * This annotation is used to inject information into a class field of Jpa Test Case Class.
  *
  * @see JpaProvider
- * @see javax.persistence.EntityManager
- * @see javax.persistence.EntityManagerFactory
+ * @see jakarta.persistence.EntityManager
+ * @see jakarta.persistence.EntityManagerFactory
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
