@@ -1,8 +1,9 @@
 package io.github.jlmc.jpa.test.junit;
 
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
