@@ -55,30 +55,30 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
 
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <plugin.version.source>3.2.1</plugin.version.source>
-        <plugin.version.surefire>3.0.0-M4</plugin.version.surefire>
-        <plugin.version.failsafe>3.0.0-M4</plugin.version.failsafe>
-        <plugin.version.release>3.0.0-M1</plugin.version.release>
+        <plugin.version.surefire>3.2.1</plugin.version.surefire>
+        <plugin.version.failsafe>3.2.1</plugin.version.failsafe>
+        <plugin.version.release>3.0.1</plugin.version.release>
 
         <!-- Project -->
         <dependency.version.flyway>6.4.2</dependency.version.flyway>
         <dependency.version.junit>5.6.2</dependency.version.junit>
-        <dependency.version.h2>1.4.200</dependency.version.h2>
+        <dependency.version.h2>2.2.224</dependency.version.h2>
         <dependency.version.postgre>42.2.8</dependency.version.postgre>
         <dependency.version.jooq>3.13.2</dependency.version.jooq>
         <dependency.version.test-containers>1.14.2</dependency.version.test-containers>
         <dependency.version.slf4j>1.7.28</dependency.version.slf4j>
 
         <!-- Examples -->
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <junit5.version>5.6.2</junit5.version>
-        <hibernate.version>6.0.1.Final</hibernate.version>
-        <log4j.version>2.13.3</log4j.version>
-        <slf4j.version>1.7.30</slf4j.version>
+        <hibernate.version>6.3.1.Final</hibernate.version>
+        <log4j.version>2.21.1</log4j.version>
+        <slf4j.version>2.0.9</slf4j.version>
     </properties>
 
     <build>
