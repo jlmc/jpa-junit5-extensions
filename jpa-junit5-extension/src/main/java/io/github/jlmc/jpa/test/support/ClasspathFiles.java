@@ -17,7 +17,6 @@ public final class ClasspathFiles {
 
     public static String readAllText(String resourcePath) {
         try {
-            //String resourcePath = "payloads/example.json";
             ClassLoader classLoader = ClasspathFiles.class.getClassLoader();
             File file = new File(Objects.requireNonNull(classLoader.getResource(resourcePath)).getFile());
 
@@ -30,11 +29,9 @@ public final class ClasspathFiles {
 
     public static byte[] readAllBytes(String resourcePath) {
         try {
-            //String resourcePath = "payloads/example.json";
             ClassLoader classLoader = ClasspathFiles.class.getClassLoader();
             File file = new File(Objects.requireNonNull(classLoader.getResource(resourcePath)).getFile());
 
-            //Read File Content
             return Files.readAllBytes(file.toPath());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
